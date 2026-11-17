@@ -9,21 +9,26 @@ import frc.trigon.lib.hardware.phoenix6.talonfx.TalonFXMotor;
 import com.ctre.phoenix6.controls.VoltageOut;
 
 public class WheelConstatnts {
-    public static final int MOTOR_ID = 0;
-    public static final String MOTOR_NAME = "IntakeMotor";
+    private static final int MOTOR_ID = 0;
+    private static final String MOTOR_NAME = "IntakeMotor";
     static final TalonFXMotor MOTOR = new TalonFXMotor(MOTOR_ID,MOTOR_NAME);
 
-    public static final InvertedValue INVERTED_VALUE = InvertedValue.Clockwise_Positive;
-    public static final NeutralModeValue NEUTRAL_MODE_VALUE = NeutralModeValue.Coast;
-    public static final double GEAR_RATIO = 1.0;
+    static final boolean FOC_ENABLED = true;
 
-    public static final VoltageOut VOLTAGE_REQUEST = new VoltageOut(0);
+    private static final InvertedValue INVERTED_VALUE = InvertedValue.Clockwise_Positive;
+    private static final NeutralModeValue NEUTRAL_MODE_VALUE = NeutralModeValue.Coast;
+    private static final double GEAR_RATIO = 1.0;
 
     static{
         final TalonFXConfiguration config = new TalonFXConfiguration();
+
+        config.Audio.BeepOnBoot = false;
+        config.Audio.BeepOnConfig = false;
+
         config.MotorOutput.Inverted = INVERTED_VALUE;
         config.MotorOutput.NeutralMode = NEUTRAL_MODE_VALUE;
         config.Feedback.SensorToMechanismRatio = GEAR_RATIO;
+
         MOTOR.applyConfiguration(config);
     }
 

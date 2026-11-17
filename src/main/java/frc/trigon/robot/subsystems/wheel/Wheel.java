@@ -1,21 +1,39 @@
 package frc.trigon.robot.subsystems.wheel;
 
+import com.ctre.phoenix6.controls.VoltageOut;
+import edu.wpi.first.units.measure.Voltage;
+import frc.trigon.lib.hardware.phoenix6.talonfx.TalonFXMotor;
+import frc.trigon.lib.hardware.phoenix6.talonfx.TalonFXSignal;
 import frc.trigon.robot.subsystems.MotorSubsystem;
 
-import static frc.trigon.robot.subsystems.wheel.WheelConstatnts.MOTOR;
-import static frc.trigon.robot.subsystems.wheel.WheelConstatnts.VOLTAGE_REQUEST;
-
-
 public class Wheel extends MotorSubsystem {
-    public static void collect(){
-        MOTOR.setControl(VOLTAGE_REQUEST.withOutput(-6.0));
+    static final TalonFXMotor MOTOR = WheelConstatnts.MOTOR;
+
+    private static final VoltageOut VOLTAGE_REQUEST = new VoltageOut(0).withEnableFOC(WheelConstatnts.FOC_ENABLED);
+
+    private static void setVoltage(double voltage) {
+        MOTOR.setControl(VOLTAGE_REQUEST.withOutput(voltage));
+        MOTOR.registerSignal(TalonFXSignal.MOTOR_VOLTAGE, voltage);
     }
 
-    public static void eject(){
-        MOTOR.setControl(VOLTAGE_REQUEST.withOutput(6.0));
+    private static double getVoltage() {
+        return MOTOR.getSignal(TalonFXSignal.MOTOR_VOLTAGE);
     }
 
-    public static void stop(){
-        MOTOR.setControl(VOLTAGE_REQUEST.withOutput(0));
+    public void collect(){
+        setVoltage(-6.0);
+    }
+
+    public void eject(){
+        setVoltage(6.0);
+    }
+
+    public void stop(){
+        setVoltage(0);
     }
 }
+
+
+
+
+
