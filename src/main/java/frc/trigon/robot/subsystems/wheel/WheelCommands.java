@@ -1,38 +1,28 @@
 package frc.trigon.robot.subsystems.wheel;
 import edu.wpi.first.wpilibj2.command.*;
+import frc.trigon.robot.RobotContainer;
 
 public class WheelCommands {
-    public static Command startCollectEndStop(Wheel wheel) {
+    public static Command getCollectCommand() {
         return new StartEndCommand(
-                () -> {
-                    wheel.collect();
-                },
-                () -> {
-                    wheel.stop();
-                },
-                wheel
+                RobotContainer.WHEEL::collect,
+                RobotContainer.WHEEL::stop,
+                RobotContainer.WHEEL
         );
     }
 
-    public static Command startEjectEndStop(Wheel wheel) {
+    public static Command getEjectsCommand() {
         return new StartEndCommand(
-                () -> {
-                    wheel.eject();
-                },
-                () -> {
-                    wheel.stop();
-                },
-                wheel
+                RobotContainer.WHEEL::eject,
+                RobotContainer.WHEEL::stop,
+                RobotContainer.WHEEL
         );
     }
     
-    public static Command collectThenWaitThenEjectThenStop(Wheel wheel) {
+    public static Command getCollectThenEjectCommand() {
         return new SequentialCommandGroup(
-                startCollectEndStop(wheel).withTimeout(3.00),
-                startEjectEndStop(wheel).withTimeout(3.00),
-                new InstantCommand(() -> wheel.stop())
+                getCollectCommand().withTimeout(3.00),
+                getEjectsCommand().withTimeout(3.00)
         );
     }
-
-
 }
