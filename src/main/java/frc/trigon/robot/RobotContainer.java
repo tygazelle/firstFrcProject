@@ -20,6 +20,8 @@ import frc.trigon.robot.misc.objectdetection.ObjectPoseEstimator;
 import frc.trigon.robot.misc.simulatedfield.SimulatedGamePieceConstants;
 import frc.trigon.robot.poseestimation.robotposeestimator.RobotPoseEstimator;
 import frc.trigon.robot.subsystems.MotorSubsystem;
+import frc.trigon.robot.subsystems.arm.Arm;
+import frc.trigon.robot.subsystems.arm.ArmCommands;
 import frc.trigon.robot.subsystems.swerve.Swerve;
 import frc.trigon.robot.subsystems.wheel.Wheel;
 import frc.trigon.robot.subsystems.wheel.WheelCommands;
@@ -34,6 +36,7 @@ public class RobotContainer {
     );
     public static final Swerve SWERVE = new Swerve();
     public static final Wheel WHEEL = new Wheel();
+    public static final Arm ARM = new Arm();
     private LoggedDashboardChooser<Command> autoChooser;
 
     public RobotContainer() {
@@ -56,6 +59,7 @@ public class RobotContainer {
 
     private void bindDefaultCommands() {
         SWERVE.setDefaultCommand(GeneralCommands.getFieldRelativeDriveCommand());
+        ARM.setDefaultCommand(ArmCommands.getSetTargetAngleCommand(0));
     }
 
     private void bindControllerCommands() {
