@@ -22,7 +22,7 @@ public class Arm extends MotorSubsystem {
         motor.stopMotor();
     }
 
-    public void GoToSetPostion(double setPoint) {
+    public void SetTargerPostion(int setPoint) {
         motor.setPosition(PID_ARM.calculate(ENCODER_ARM.getSignal(CANcoderSignal.POSITION),setPoint));
     }
 }

@@ -11,7 +11,10 @@ import frc.trigon.lib.hardware.phoenix6.talonfx.TalonFXMotor;
 import frc.trigon.lib.hardware.phoenix6.talonfx.TalonFXSignal;
 
 public class ArmConstants {
-    static final PIDController PID_ARM = new PIDController(1.5, 0.00001, 2);
+    static final double P = 1.5;
+    static final double I = 0.000001;
+    static final double D = 2;
+    static final PIDController PID_ARM = new PIDController(P, I, D);
 
     private static int CAN_ENCODER_ARM_ID = 0;
     private static String  CAN_ENCODER_ARM_NAME = "arm";
@@ -45,5 +48,4 @@ public class ArmConstants {
 
         ENCODER_ARM.registerSignal(CANcoderSignal.POSITION, 100);
     }
-
 }
