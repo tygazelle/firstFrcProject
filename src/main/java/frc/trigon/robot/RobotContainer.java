@@ -35,8 +35,8 @@ public class RobotContainer {
             CameraConstants.OBJECT_DETECTION_CAMERA
     );
     public static final Swerve SWERVE = new Swerve();
-    public static final Wheel WHEEL = new Wheel();
     public static final Arm ARM = new Arm();
+    public static final Wheel WHEEL = new Wheel();
     private LoggedDashboardChooser<Command> autoChooser;
 
     public RobotContainer() {

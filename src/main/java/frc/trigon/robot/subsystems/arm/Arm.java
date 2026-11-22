@@ -1,6 +1,7 @@
 package frc.trigon.robot.subsystems.arm;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Rotation2d;
 import frc.trigon.lib.hardware.phoenix6.cancoder.CANcoderEncoder;
 import frc.trigon.lib.hardware.phoenix6.cancoder.CANcoderSignal;
 import frc.trigon.lib.hardware.phoenix6.talonfx.TalonFXMotor;
@@ -18,7 +19,7 @@ public class Arm extends MotorSubsystem {
         motor.stopMotor();
     }
 
-    public void SetTargetPosition(int targetAngle) {
-        motor.setPosition(pidArm.calculate(encoderArm.getSignal(CANcoderSignal.POSITION),targetAngle));
+    public void SetTargetAngle(Rotation2d targetAngle) {
+        motor.setPosition(pidArm.calculate(encoderArm.getSignal(CANcoderSignal.POSITION),targetAngle.getDegrees()));
     }
 }
