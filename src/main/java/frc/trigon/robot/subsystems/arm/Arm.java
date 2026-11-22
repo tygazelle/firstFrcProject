@@ -18,7 +18,7 @@ public class Arm extends MotorSubsystem {
         motor.stopMotor();
     }
 
-    public void SetTargerPostion(int targetAngle) {
+    public void SetTargetPosition(int targetAngle) {
         motor.setPosition(pidArm.calculate(encoderArm.getSignal(CANcoderSignal.POSITION),targetAngle));
     }
 }

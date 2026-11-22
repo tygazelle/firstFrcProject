@@ -7,9 +7,7 @@ import frc.trigon.robot.RobotContainer;
 public class ArmCommands {
     public static Command getSetTargetAngleCommand(int targetAngle) {
         return new StartEndCommand(
-                () -> {
-                    RobotContainer.ARM.SetTargerPostion(targetAngle);
-                },
+                () -> RobotContainer.ARM.SetTargetPosition(targetAngle),
                 RobotContainer.ARM::stop,
                 RobotContainer.ARM
         );
