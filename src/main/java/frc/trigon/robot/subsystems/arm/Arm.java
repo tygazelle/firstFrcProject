@@ -5,16 +5,12 @@ import frc.trigon.lib.hardware.phoenix6.cancoder.CANcoderEncoder;
 import frc.trigon.lib.hardware.phoenix6.cancoder.CANcoderSignal;
 import frc.trigon.lib.hardware.phoenix6.talonfx.TalonFXMotor;
 import frc.trigon.robot.subsystems.MotorSubsystem;
-import frc.trigon.robot.subsystems.wheel.WheelConstatnts;
-
-import javax.swing.text.Position;
-import java.beans.Encoder;
 
 import static frc.trigon.robot.subsystems.arm.ArmConstants.MOTOR;
 
 public class Arm extends MotorSubsystem {
-    private final PIDController PID_ARM = ArmConstants.PID_ARM;
-    private final CANcoderEncoder ENCODER_ARM = ArmConstants.ENCODER_ARM;
+    private final PIDController pidArm = ArmConstants.PID_ARM;
+    private final CANcoderEncoder encoderArm = ArmConstants.ENCODER_ARM;
     private final TalonFXMotor motor = MOTOR;
 
     @Override
@@ -22,7 +18,7 @@ public class Arm extends MotorSubsystem {
         motor.stopMotor();
     }
 
-    public void SetTargerPostion(int setPoint) {
-        motor.setPosition(PID_ARM.calculate(ENCODER_ARM.getSignal(CANcoderSignal.POSITION),setPoint));
+    public void SetTargerPostion(int targetAngle) {
+        motor.setPosition(pidArm.calculate(encoderArm.getSignal(CANcoderSignal.POSITION),targetAngle));
     }
 }

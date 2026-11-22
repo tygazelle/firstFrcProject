@@ -5,10 +5,10 @@ import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.trigon.robot.RobotContainer;
 
 public class ArmCommands {
-    public static Command getSetTargetAngleCommand(int setPoint) {
+    public static Command getSetTargetAngleCommand(int targetAngle) {
         return new StartEndCommand(
                 () -> {
-                    RobotContainer.ARM.SetTargerPostion(setPoint);
+                    RobotContainer.ARM.SetTargerPostion(targetAngle);
                 },
                 RobotContainer.ARM::stop,
                 RobotContainer.ARM

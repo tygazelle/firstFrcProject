@@ -4,6 +4,7 @@ import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ctre.phoenix6.signals.SensorDirectionValue;
 import edu.wpi.first.math.controller.PIDController;
 import frc.trigon.lib.hardware.phoenix6.cancoder.CANcoderEncoder;
 import frc.trigon.lib.hardware.phoenix6.cancoder.CANcoderSignal;
@@ -16,8 +17,8 @@ public class ArmConstants {
     static final double D = 2;
     static final PIDController PID_ARM = new PIDController(P, I, D);
 
-    private static int CAN_ENCODER_ARM_ID = 0;
-    private static String  CAN_ENCODER_ARM_NAME = "arm";
+    private static final int CAN_ENCODER_ARM_ID = 0;
+    private static final String  CAN_ENCODER_ARM_NAME = "arm";
     static final CANcoderEncoder ENCODER_ARM = new CANcoderEncoder(CAN_ENCODER_ARM_ID,CAN_ENCODER_ARM_NAME);
 
     private static final int MOTOR_ID = 1;
@@ -30,22 +31,46 @@ public class ArmConstants {
     private static final NeutralModeValue NEUTRAL_MODE_VALUE = NeutralModeValue.Coast;
     private static final double GEAR_RATIO = 1.0;
 
-    static {
-        final TalonFXConfiguration MOTOR_CONFIG = new TalonFXConfiguration();
+    public enum ArmState {
+        open(120),
+        closed(0),
+        halfOpen(60);
 
-        MOTOR_CONFIG.Audio.BeepOnBoot = false;
-        MOTOR_CONFIG.Audio.BeepOnConfig = false;
+        final int targetAngle;
 
-        MOTOR_CONFIG.MotorOutput.Inverted = INVERTED_VALUE;
-        MOTOR_CONFIG.MotorOutput.NeutralMode = NEUTRAL_MODE_VALUE;
-        MOTOR_CONFIG.Feedback.SensorToMechanismRatio = GEAR_RATIO;
+        ArmState(int targetAngle) {
+            this.targetAngle = targetAngle;
+        }
+    }
 
-        MOTOR.applyConfiguration(MOTOR_CONFIG);
+    public static void configure_motor(){
+        final TalonFXConfiguration motorConfig = new TalonFXConfiguration();
+
+        motorConfig.Audio.BeepOnBoot = false;
+        motorConfig.Audio.BeepOnConfig = false;
+
+        motorConfig.MotorOutput.Inverted = INVERTED_VALUE;
+        motorConfig.MotorOutput.NeutralMode = NEUTRAL_MODE_VALUE;
+        motorConfig.Feedback.SensorToMechanismRatio = GEAR_RATIO;
+
+        MOTOR.applyConfiguration(motorConfig);
         MOTOR.registerSignal(TalonFXSignal.MOTOR_VOLTAGE, 100);
         MOTOR.registerSignal(TalonFXSignal.STATOR_CURRENT, 100);
+    }
 
-        final CANcoderConfiguration ENCODER_CONFIG = new CANcoderConfiguration();
+    public static void configure_encoder(){
+        final CANcoderConfiguration encoderConfig = new CANcoderConfiguration();
 
-        ENCODER_ARM.registerSignal(CANcoderSignal.POSITION, 100);
+        encoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
+        encoderConfig.MagnetSensor.MagnetOffset = 0.44675;
+        encoderConfig.MagnetSensor.AbsoluteSensorDiscontinuityPoint = 0.5;
+
+        ENCODER_ARM.applyConfiguration(encoderConfig);
+        ENCODER_ARM.setSimulationInputsFromTalonFX(MOTOR);
+    }
+
+    static {
+        configure_motor();
+        configure_encoder();
     }
 }
