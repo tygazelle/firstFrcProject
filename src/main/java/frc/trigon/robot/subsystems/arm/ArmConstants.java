@@ -13,8 +13,8 @@ import frc.trigon.lib.hardware.phoenix6.talonfx.TalonFXSignal;
 
 public class ArmConstants {
     private static final int
-            MOTOR_ID = 1,
-            CAN_ENCODER_ARM_ID = 0;
+            MOTOR_ID = 9,
+            CAN_ENCODER_ARM_ID = 9;
     private static final String
             MOTOR_NAME = "Arm",
             CAN_ENCODER_ARM_NAME = "ArmEncoder";
@@ -24,10 +24,10 @@ public class ArmConstants {
     private static final NeutralModeValue NEUTRAL_MODE_VALUE = NeutralModeValue.Coast;
     private static final double GEAR_RATIO = 1.0;
     static final double
-            P = 1.5,
-            I = 0.000001
-            ,D = 5;
-    static final PIDController PID_ARM = new PIDController(P, I, D);
+            kP = 1.5,
+            kI = 0.000001,
+            kD = 5;
+    static final PIDController PID_ARM = new PIDController(kP, kI, kD);
     static final boolean FOC_ENABLED = true;
 
     static {
@@ -63,9 +63,9 @@ public class ArmConstants {
     }
 
     public enum ARM_STATE {
-        open(Rotation2d.fromDegrees(120)),
-        closed(Rotation2d.fromDegrees(0)),
-        halfOpen(Rotation2d.fromDegrees(60)),;
+        OPEN(Rotation2d.fromDegrees(120)),
+        CLOSED(Rotation2d.fromDegrees(0)),
+        HALF_OPEN(Rotation2d.fromDegrees(60)),;
 
         final Rotation2d targetAngle;
         ARM_STATE(Rotation2d targetAngle) {

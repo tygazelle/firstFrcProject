@@ -20,6 +20,6 @@ public class Arm extends MotorSubsystem {
     }
 
     public void SetTargetAngle(Rotation2d targetAngle) {
-        motor.setPosition(pidArm.calculate(encoderArm.getSignal(CANcoderSignal.POSITION),targetAngle.getDegrees()));
+        motor.setPosition(pidArm.calculate(encoderArm.getSignal(CANcoderSignal.POSITION),targetAngle.getRotations()));
     }
 }
