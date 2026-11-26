@@ -20,9 +20,11 @@ import frc.trigon.robot.misc.objectdetection.ObjectPoseEstimator;
 import frc.trigon.robot.misc.simulatedfield.SimulatedGamePieceConstants;
 import frc.trigon.robot.poseestimation.robotposeestimator.RobotPoseEstimator;
 import frc.trigon.robot.subsystems.MotorSubsystem;
+import frc.trigon.robot.subsystems.arm.Arm;
+import frc.trigon.robot.subsystems.arm.ArmCommands;
+import frc.trigon.robot.subsystems.arm.ArmConstants;
 import frc.trigon.robot.subsystems.swerve.Swerve;
 import frc.trigon.robot.subsystems.wheel.Wheel;
-import frc.trigon.robot.subsystems.wheel.WheelCommands;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 public class RobotContainer {
@@ -33,6 +35,7 @@ public class RobotContainer {
             CameraConstants.OBJECT_DETECTION_CAMERA
     );
     public static final Swerve SWERVE = new Swerve();
+    public static final Arm ARM = new Arm();
     public static final Wheel WHEEL = new Wheel();
     private LoggedDashboardChooser<Command> autoChooser;
 
@@ -56,6 +59,7 @@ public class RobotContainer {
 
     private void bindDefaultCommands() {
         SWERVE.setDefaultCommand(GeneralCommands.getFieldRelativeDriveCommand());
+        ARM.setDefaultCommand(ArmCommands.getsetTargetStateCommand(ArmConstants.ArmState.CLOSED));
     }
 
     private void bindControllerCommands() {

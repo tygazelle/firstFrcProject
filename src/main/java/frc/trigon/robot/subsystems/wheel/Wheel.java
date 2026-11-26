@@ -25,6 +25,7 @@ public class Wheel extends MotorSubsystem {
         setVoltage(6.0);
     }
 
+    @Override
     public void stop(){
         motor.stopMotor();
     }

@@ -10,7 +10,7 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import frc.trigon.lib.hardware.phoenix6.talonfx.TalonFXSignal;
 
 public class WheelConstatnts {
-    private static final int MOTOR_ID = 0;
+    private static final int MOTOR_ID = 8;
     private static final String MOTOR_NAME = "IntakeMotor";
     static final TalonFXMotor MOTOR = new TalonFXMotor(MOTOR_ID, MOTOR_NAME);
 
