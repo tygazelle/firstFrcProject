@@ -59,7 +59,7 @@ public class RobotContainer {
 
     private void bindDefaultCommands() {
         SWERVE.setDefaultCommand(GeneralCommands.getFieldRelativeDriveCommand());
-        ARM.setDefaultCommand(ArmCommands.getsetTargetStateCommand(ArmConstants.armState.CLOSED));
+        ARM.setDefaultCommand(ArmCommands.getsetTargetStateCommand(ArmConstants.ArmState.CLOSED));
     }
 
     private void bindControllerCommands() {

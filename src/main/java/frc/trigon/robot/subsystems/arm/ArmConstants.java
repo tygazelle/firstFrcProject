@@ -64,14 +64,14 @@ public class ArmConstants {
         ENCODER.registerSignal(CANcoderSignal.POSITION,100);
     }
 
-    public enum armState {
+    public enum ArmState {
         OPEN(Rotation2d.fromDegrees(120)),
         CLOSED(Rotation2d.fromDegrees(0)),
         HALF_OPEN(Rotation2d.fromDegrees(60));
 
         final Rotation2d targetAngle;
 
-        armState(Rotation2d targetAngle) {
+        ArmState(Rotation2d targetAngle) {
             this.targetAngle = targetAngle;
         }
     }

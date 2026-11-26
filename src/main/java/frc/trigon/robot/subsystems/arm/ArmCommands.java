@@ -14,7 +14,7 @@ public class ArmCommands {
         );
     }
 
-    public static Command getsetTargetStateCommand(ArmConstants.armState targetState) {
+    public static Command getsetTargetStateCommand(ArmConstants.ArmState targetState) {
         return new StartEndCommand(
                 () -> RobotContainer.ARM.setTargetAngle(targetState.targetAngle),
                 RobotContainer.ARM::stop,
